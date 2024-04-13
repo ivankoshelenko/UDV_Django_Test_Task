@@ -7,27 +7,27 @@ python -m venv [path to venv folder]
 .\venv\Scripts\activate (for Windows)
 source env/bin/activate (for Linux)
 ```
-3. Install requirements
-``` 
-pip install -r requirements.txt
-```
-5. Change directory
+3. Change directory
 ``` 
 cd news_backend
 ```
-6. Create db
+4. Install requirements
+``` 
+pip install -r requirements.txt
+```
+5. Create db
 ``` 
 python manage.py migrate
 ```
-7. (Optionally) Create admin
+6. (Optionally) Create admin
 ``` 
 python manage.py createsuperuser
 ```
-8. Run server
+7. Run server
 ``` 
 python manage.py runserver
 ```
-9. access swagger schema at
+8. access swagger schema at
 ``` 
 http://127.0.0.1:8000/swagger/#/
 ```
