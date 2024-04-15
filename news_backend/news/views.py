@@ -1,6 +1,6 @@
 from django.http import Http404
+from rest_framework.exceptions import NotFound
 from rest_framework.response import Response
-from rest_framework.views import APIView
 from rest_framework.viewsets import ModelViewSet
 
 from comments.models import Comments
@@ -23,10 +23,10 @@ class NewsViewSet(ModelViewSet):
         try:
             news_data = News.objects.filter(pk=self.kwargs["pk"]).values()[0]
         except:
-            raise Http404("Article does not exist")
-        if news_data["deleted"] == True:
-            raise Http404("Article was deleted")
-        comments =Comments.objects.filter(news_id=self.kwargs["pk"]).values()
+            raise NotFound("404")
+        if news_data["deleted"]:
+            raise NotFound("404")
+        comments = Comments.objects.filter(news_id=self.kwargs["pk"]).values()
         news_data['comments'] = comments
         news_data['comments_count'] = len(comments)
         return Response(data=news_data)
@@ -35,9 +35,9 @@ class NewsViewSet(ModelViewSet):
         try:
             article = self.get_object()
         except:
-            raise Http404("Article does no exist")
+            raise NotFound("404")
         if (article.deleted == True):
-            raise Http404("Article already deleted")
+            raise NotFound("404")
         article.deleted = True
         article.save()
         return Response(data={"detail": "Article successfuly deleted"})
