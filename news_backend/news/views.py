@@ -13,11 +13,11 @@ class NewsViewSet(ModelViewSet):
     serializer_class = NewsSerializer
     http_method_names = ['post', 'get', 'put', 'delete', 'patch']
 
-    def list(self,request):
+    def list(self, request):
         news = News.objects.filter(deleted=False).values()
         for article in news:
             article['comments_count'] = len(Comments.objects.filter(news_id=article["id"]).values())
-        return Response(data={"news":news,"news_count":len(news)})
+        return Response(data={"news": news, "news_count": len(news)})
 
     def retrieve(self, request, *args, **kwargs):
         try:
