@@ -9,7 +9,6 @@ class CommentsViewSet(ModelViewSet):
     queryset = Comments.objects.all()
     serializer_class = CommentsSerializer
     http_method_names = ['post', 'get', 'put', 'delete', 'patch']
-    permission_classes = (permissions.AllowAny,)
 
     def list(self, request):
         comments = Comments.objects.all().values()
